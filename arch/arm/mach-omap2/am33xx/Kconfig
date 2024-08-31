@@ -7,6 +7,38 @@ config AM33XX_CHILISOM
 choice
 	prompt "AM33xx board select"
 
+config TARGET_AM335X_ORESAT
+	bool "Support am335x_oresat"
+	select BOARD_LATE_INIT
+	select DM
+	select DM_GPIO
+	select DM_SERIAL
+	select TI_I2C_BOARD_DETECT
+	select SUPPORT_EXTENSION_SCAN
+	imply CMD_DM
+	imply SPL_DM
+	imply SPL_DM_SEQ_ALIAS
+	imply SPL_ENV_SUPPORT
+	imply SPL_FS_EXT4
+	imply SPL_FS_FAT
+	imply SPL_GPIO
+	imply SPL_I2C
+	imply SPL_LIBCOMMON_SUPPORT
+	imply SPL_LIBDISK_SUPPORT
+	imply SPL_LIBGENERIC_SUPPORT
+	imply SPL_MMC
+	imply SPL_NAND_SUPPORT
+	imply SPL_OF_LIBFDT
+	imply SPL_POWER
+	imply SPL_SEPARATE_BSS
+	imply SPL_SERIAL
+	imply SPL_SYS_MALLOC_SIMPLE
+	imply SPL_WATCHDOG
+	imply SPL_YMODEM_SUPPORT
+	help
+	  This option specifies support for the AM335x
+	  OreSat boards.
+
 config TARGET_AM335X_EVM
 	bool "Support am335x_evm"
 	select BOARD_LATE_INIT

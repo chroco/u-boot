@@ -1,0 +1,6 @@
+ORESAT BOARD
+M:	Chad Coates <chroco@gmail.com>
+S:	Maintained
+F:	board/ti/oresat/
+F:	include/configs/am335x_oresat.h
+F:	configs/am335x_oresat_defconfig
