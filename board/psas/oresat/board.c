@@ -89,10 +89,10 @@ void do_board_detect(void)
 #ifndef CONFIG_DM_SERIAL
 struct serial_device *default_serial_console(void)
 {
-	if (board_is_icev2())
-		return &eserial4_device;
-	else
-		return &eserial1_device;
+//	if (board_is_icev2())
+//		return &eserial4_device;
+//	else
+	return &eserial1_device;
 }
 #endif
 
@@ -270,7 +270,7 @@ int spl_start_uboot(void)
 const struct dpll_params *get_dpll_ddr_params(void)
 {
 	int ind = get_sys_clk_index();
-
+/*
 	if (board_is_evm_sk())
 		return &dpll_ddr3_303MHz[ind];
 	else if (board_is_pb() || board_is_bone_lt() || board_is_icev2())
@@ -279,10 +279,13 @@ const struct dpll_params *get_dpll_ddr_params(void)
 		return &dpll_ddr3_303MHz[ind];
 	else
 		return &dpll_ddr2_266MHz[ind];
+*/
+  return &dpll_ddr3_400MHz[ind];
 }
 
 static u8 bone_not_connected_to_ac_power(void)
 {
+ /*
 	if (board_is_bone()) {
 		uchar pmic_status_reg;
 		if (tps65217_reg_read(TPS65217_STATUS,
@@ -293,6 +296,7 @@ static u8 bone_not_connected_to_ac_power(void)
 			return 1;
 		}
 	}
+*/
 	return 0;
 }
 
@@ -301,9 +305,9 @@ const struct dpll_params *get_dpll_mpu_params(void)
 	int ind = get_sys_clk_index();
 	int freq = am335x_get_efuse_mpu_max_freq(cdev);
 
+/*
 	if (bone_not_connected_to_ac_power())
 		freq = MPUPLL_M_600;
-
 	if (board_is_pb() || board_is_bone_lt())
 		freq = MPUPLL_M_1000;
 
@@ -321,6 +325,23 @@ const struct dpll_params *get_dpll_mpu_params(void)
 	case MPUPLL_M_300:
 		return &dpll_mpu_opp[ind][0];
 	}
+*/
+	if (board_is_oresat())
+		freq = MPUPLL_M_1000;
+
+	switch (freq) {
+	case MPUPLL_M_1000:
+		return &dpll_mpu_opp[ind][5];
+	case MPUPLL_M_800:
+		return &dpll_mpu_opp[ind][4];
+	case MPUPLL_M_720:
+		return &dpll_mpu_opp[ind][3];
+	case MPUPLL_M_600:
+		return &dpll_mpu_opp[ind][2];
+	case MPUPLL_M_500:
+		return &dpll_mpu_opp100;
+	case MPUPLL_M_300:
+		return &dpll_mpu_opp[ind][0];
 
 	return &dpll_mpu_opp[ind][0];
 }
@@ -333,8 +354,8 @@ static void scale_vcores_bone(int freq)
 	 * Only perform PMIC configurations if board rev > A1
 	 * on Beaglebone White
 	 */
-	if (board_is_bone() && !strncmp(board_ti_get_rev(), "00A1", 4))
-		return;
+	//if (board_is_bone() && !strncmp(board_ti_get_rev(), "00A1", 4))
+//		return;
 
 	if (power_tps65217_init(0))
 		return;
@@ -343,14 +364,15 @@ static void scale_vcores_bone(int freq)
 	 * On Beaglebone White we need to ensure we have AC power
 	 * before increasing the frequency.
 	 */
-	if (bone_not_connected_to_ac_power())
-		freq = MPUPLL_M_600;
+//	if (bone_not_connected_to_ac_power())
+//		freq = MPUPLL_M_600;
 
 	/*
 	 * Override what we have detected since we know if we have
 	 * a Beaglebone Black it supports 1GHz.
 	 */
-	if (board_is_pb() || board_is_bone_lt())
+/*
+  if (board_is_pb() || board_is_bone_lt())
 		freq = MPUPLL_M_1000;
 
 	switch (freq) {
@@ -374,6 +396,9 @@ static void scale_vcores_bone(int freq)
 		usb_cur_lim = TPS65217_USB_INPUT_CUR_LIMIT_1300MA;
 		break;
 	}
+*/
+  mpu_vdd = TPS65217_DCDC_VOLT_SEL_1325MV;
+  usb_cur_lim = TPS65217_USB_INPUT_CUR_LIMIT_1800MA;
 
 	if (tps65217_reg_write(TPS65217_PROT_LEVEL_NONE,
 			       TPS65217_POWER_PATH,
@@ -398,6 +423,7 @@ static void scale_vcores_bone(int freq)
 	 * Set LDO3, LDO4 output voltage to 3.3V for Beaglebone.
 	 * Set LDO3 to 1.8V and LDO4 to 3.3V for Beaglebone Black.
 	 */
+/*
 	if (board_is_bone()) {
 		if (tps65217_reg_write(TPS65217_PROT_LEVEL_2,
 				       TPS65217_DEFLS1,
@@ -411,7 +437,14 @@ static void scale_vcores_bone(int freq)
 				       TPS65217_LDO_MASK))
 			puts("tps65217_reg_write failure\n");
 	}
+*/
+  if (tps65217_reg_write(TPS65217_PROT_LEVEL_2,
+             TPS65217_DEFLS1,
+             TPS65217_LDO_VOLTAGE_OUT_1_8,
+             TPS65217_LDO_MASK))
+    puts("tps65217_reg_write failure\n");
 
+  
 	if (tps65217_reg_write(TPS65217_PROT_LEVEL_2,
 			       TPS65217_DEFLS2,
 			       TPS65217_LDO_VOLTAGE_OUT_3_3,
@@ -469,10 +502,13 @@ void scale_vcores(void)
 	gpi2c_init();
 	freq = am335x_get_efuse_mpu_max_freq(cdev);
 
+/*
 	if (board_is_beaglebonex())
 		scale_vcores_bone(freq);
 	else
 		scale_vcores_generic(freq);
+*/
+  scale_vcores_bone(freq);
 }
 
 void set_uart_mux_conf(void)
@@ -531,15 +567,16 @@ const struct ctrl_ioregs ioregs = {
 
 void sdram_init(void)
 {
-	if (board_is_evm_sk()) {
+//	if (board_is_evm_sk()) {
 		/*
 		 * EVM SK 1.2A and later use gpio0_7 to enable DDR3.
 		 * This is safe enough to do on older revs.
 		 */
-		gpio_request(GPIO_DDR_VTT_EN, "ddr_vtt_en");
-		gpio_direction_output(GPIO_DDR_VTT_EN, 1);
-	}
+//		gpio_request(GPIO_DDR_VTT_EN, "ddr_vtt_en");
+//	gpio_direction_output(GPIO_DDR_VTT_EN, 1);
+//}
 
+/*
 	if (board_is_icev2()) {
 		gpio_request(ICE_GPIO_DDR_VTT_EN, "ddr_vtt_en");
 		gpio_direction_output(ICE_GPIO_DDR_VTT_EN, 1);
@@ -567,10 +604,17 @@ void sdram_init(void)
 		config_ddr(266, &ioregs, &ddr2_data,
 			   &ddr2_cmd_ctrl_data, &ddr2_emif_reg_data, 0);
 }
+*/
+  config_ddr(400, &ioregs_bonelt,
+       &ddr3_beagleblack_data,
+       &ddr3_beagleblack_cmd_ctrl_data,
+       &ddr3_beagleblack_emif_reg_data, 0);
+
 #endif
 
 #if defined(CONFIG_CLOCK_SYNTHESIZER) && (!defined(CONFIG_SPL_BUILD) || \
 	(defined(CONFIG_SPL_ETH) && defined(CONFIG_SPL_BUILD)))
+/*
 static void request_and_set_gpio(int gpio, char *name, int val)
 {
 	int ret;
@@ -594,6 +638,7 @@ static void request_and_set_gpio(int gpio, char *name, int val)
 err_free_gpio:
 	gpio_free(gpio);
 }
+*/
 
 #define REQUEST_AND_SET_GPIO(N)	request_and_set_gpio(N, #N, 1);
 #define REQUEST_AND_CLR_GPIO(N)	request_and_set_gpio(N, #N, 0);
@@ -604,6 +649,7 @@ err_free_gpio:
  * PLL1 gives an output of 100MHz. So, configuring the div2/3 as 2 to
  * give 50MHz output for Eth0 and 1.
  */
+/*
 static struct clk_synth cdce913_data = {
 	.id = 0x81,
 	.capacitor = 0x90,
@@ -611,6 +657,7 @@ static struct clk_synth cdce913_data = {
 	.pdiv2 = 0x2,
 	.pdiv3 = 0x2,
 };
+*/
 #endif
 
 #if defined(CONFIG_OF_BOARD_SETUP) && defined(CONFIG_OF_CONTROL) && \
@@ -630,8 +677,8 @@ int ft_board_setup(void *fdt, struct bd_info *bd)
 	int i, ret;
 
 	/* phy address fixup needed only on beagle bone family */
-	if (!board_is_beaglebonex())
-		goto done;
+//	if (!board_is_beaglebonex())
+//		goto done;
 
 	for (i = 0; i < MAX_CPSW_SLAVES; i++) {
 		sprintf(alias, "ethernet%d", i);
@@ -686,7 +733,7 @@ int ft_board_setup(void *fdt, struct bd_info *bd)
 		}
 	}
 
-done:
+//done:
 	return 0;
 }
 #endif
@@ -709,6 +756,7 @@ int board_init(void)
 
 #if defined(CONFIG_CLOCK_SYNTHESIZER) && (!defined(CONFIG_SPL_BUILD) || \
 	(defined(CONFIG_SPL_ETH) && defined(CONFIG_SPL_BUILD)))
+/*
 	if (board_is_icev2()) {
 		int rv;
 		u32 reg;
@@ -716,52 +764,52 @@ int board_init(void)
 		bool eth1_is_mii = true;
 
 		REQUEST_AND_SET_GPIO(GPIO_PR1_MII_CTRL);
-		/* Make J19 status available on GPIO1_26 */
+		// Make J19 status available on GPIO1_26 
 		REQUEST_AND_CLR_GPIO(GPIO_MUX_MII_CTRL);
 
 		REQUEST_AND_SET_GPIO(GPIO_FET_SWITCH_CTRL);
-		/*
-		 * Both ports can be set as RMII-CPSW or MII-PRU-ETH using
-		 * jumpers near the port. Read the jumper value and set
-		 * the pinmux, external mux and PHY clock accordingly.
-		 * As jumper line is overridden by PHY RX_DV pin immediately
-		 * after bootstrap (power-up/reset), we need to sample
-		 * it during PHY reset using GPIO rising edge detection.
-		 */
+		//
+		// Both ports can be set as RMII-CPSW or MII-PRU-ETH using
+		// jumpers near the port. Read the jumper value and set
+		// the pinmux, external mux and PHY clock accordingly.
+		// As jumper line is overridden by PHY RX_DV pin immediately
+		// after bootstrap (power-up/reset), we need to sample
+		// it during PHY reset using GPIO rising edge detection.
+		//
 		REQUEST_AND_SET_GPIO(GPIO_PHY_RESET);
-		/* Enable rising edge IRQ on GPIO0_11 and GPIO 1_26 */
+		// Enable rising edge IRQ on GPIO0_11 and GPIO 1_26 
 		reg = readl(GPIO0_RISINGDETECT) | BIT(11);
 		writel(reg, GPIO0_RISINGDETECT);
 		reg = readl(GPIO1_RISINGDETECT) | BIT(26);
 		writel(reg, GPIO1_RISINGDETECT);
-		/* Reset PHYs to capture the Jumper setting */
+		// Reset PHYs to capture the Jumper setting 
 		gpio_set_value(GPIO_PHY_RESET, 0);
-		udelay(2);	/* PHY datasheet states 1uS min. */
+		udelay(2);	// PHY datasheet states 1uS min. 
 		gpio_set_value(GPIO_PHY_RESET, 1);
 
 		reg = readl(GPIO0_IRQSTATUSRAW) & BIT(11);
 		if (reg) {
-			writel(reg, GPIO0_IRQSTATUS1); /* clear irq */
-			/* RMII mode */
+			writel(reg, GPIO0_IRQSTATUS1); // clear irq 
+			// RMII mode 
 			printf("ETH0, CPSW\n");
 			eth0_is_mii = false;
 		} else {
-			/* MII mode */
+			// MII mode 
 			printf("ETH0, PRU\n");
-			cdce913_data.pdiv3 = 4;	/* 25MHz PHY clk */
+			cdce913_data.pdiv3 = 4;	// 25MHz PHY clk 
 		}
 
 		reg = readl(GPIO1_IRQSTATUSRAW) & BIT(26);
 		if (reg) {
-			writel(reg, GPIO1_IRQSTATUS1); /* clear irq */
-			/* RMII mode */
+			writel(reg, GPIO1_IRQSTATUS1); // clear irq 
+			// RMII mode 
 			printf("ETH1, CPSW\n");
 			gpio_set_value(GPIO_MUX_MII_CTRL, 1);
 			eth1_is_mii = false;
 		} else {
-			/* MII mode */
+			// MII mode 
 			printf("ETH1, PRU\n");
-			cdce913_data.pdiv2 = 4;	/* 25MHz PHY clk */
+			cdce913_data.pdiv2 = 4;	// 25MHz PHY clk 
 		}
 
 		if (eth0_is_mii != eth1_is_mii) {
@@ -772,7 +820,7 @@ int board_init(void)
 
 		prueth_is_mii = eth0_is_mii;
 
-		/* disable rising edge IRQs */
+		// disable rising edge IRQs 
 		reg = readl(GPIO0_RISINGDETECT) & ~BIT(11);
 		writel(reg, GPIO0_RISINGDETECT);
 		reg = readl(GPIO1_RISINGDETECT) & ~BIT(26);
@@ -784,11 +832,12 @@ int board_init(void)
 			return rv;
 		}
 
-		/* reset PHYs */
+		// reset PHYs 
 		gpio_set_value(GPIO_PHY_RESET, 0);
-		udelay(2);	/* PHY datasheet states 1uS min. */
+		udelay(2);	// PHY datasheet states 1uS min. 
 		gpio_set_value(GPIO_PHY_RESET, 1);
 	}
+*/
 #endif
 
 	return 0;
@@ -806,16 +855,17 @@ int board_late_init(void)
 #ifdef CONFIG_ENV_VARS_UBOOT_RUNTIME_CONFIG
 	char *name = NULL;
 
+/*
 	if (board_is_bone_lt()) {
-		/* BeagleBoard.org BeagleBone Black Wireless: */
+		// BeagleBoard.org BeagleBone Black Wireless: 
 		if (!strncmp(board_ti_get_rev(), "BWA", 3)) {
 			name = "BBBW";
 		}
-		/* SeeedStudio BeagleBone Green Wireless */
+		// SeeedStudio BeagleBone Green Wireless 
 		if (!strncmp(board_ti_get_rev(), "GW1", 3)) {
 			name = "BBGW";
 		}
-		/* BeagleBoard.org BeagleBone Blue */
+		// BeagleBoard.org BeagleBone Blue 
 		if (!strncmp(board_ti_get_rev(), "BLA", 3)) {
 			name = "BBBL";
 		}
@@ -837,6 +887,7 @@ int board_late_init(void)
 			name = "BBEN";
 		}
 	}
+*/
 	set_board_info_env(name);
 
 	/*
@@ -950,6 +1001,7 @@ U_BOOT_DRVINFO(am335x_eth) = {
 #ifdef CONFIG_SPL_LOAD_FIT
 int board_fit_config_name_match(const char *name)
 {
+/*
 	if (board_is_gp_evm() && !strcmp(name, "am335x-evm"))
 		return 0;
 	else if (board_is_bone() && !strcmp(name, "am335x-bone"))
@@ -977,6 +1029,19 @@ int board_fit_config_name_match(const char *name)
 			return 0;
 		}
 	}
+*/
+	if (board_is_oresat_c3() && !strcmp(name, "oresat-c3"))
+		return 0;
+	else if (board_is_oresat_gps() && !strcmp(name, "oresat-gps"))
+		return 0;
+	else if (board_is_oresat_st() && !strcmp(name, "oresat-star-tracker"))
+		return 0;
+	else if (board_is_oresat_dxwifi() && !strcmp(name, "oresat-dxwifi"))
+		return 0;
+	else if (board_is_oresat_cfc() && !strcmp(name, "oresat-cfc"))
+		return 0;
+	else if (board_is_bone_lt() && !strcmp(name, "am335x-boneblack"))
+		return 0;
 	return -1;
 }
 #endif
