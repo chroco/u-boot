@@ -50,10 +50,16 @@ static inline int board_is_bone_lt(void)
 	return board_ti_is("A335BNLT");
 }
 
+static inline int board_is_pb(void)
+{
+	return board_ti_is("A335PBGL");
+}
+
 static inline int board_is_oresat(void)
 {
 	return board_is_oresat_c3() || board_is_oresat_gps() || board_is_oresat_st() ||
-	       board_is_oresat_dxwifi() || board_is_oresat_cfc() || board_is_bone_lt();
+	       board_is_oresat_dxwifi() || board_is_oresat_cfc() || board_is_bone_lt() ||
+         board_is_pb();
 }
 
 /*
@@ -67,10 +73,7 @@ static inline int board_is_bone_lt(void)
 	return board_ti_is("A335BNLT");
 }
 
-static inline int board_is_pb(void)
-{
-	return board_ti_is("A335PBGL");
-}
+
 
 static inline int board_is_bbg1(void)
 {

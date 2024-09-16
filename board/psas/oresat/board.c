@@ -97,12 +97,15 @@ struct serial_device *default_serial_console(void)
 #endif
 
 #if !CONFIG_IS_ENABLED(SKIP_LOWLEVEL_INIT)
+/*
 static const struct ddr_data ddr2_data = {
 	.datardsratio0 = MT47H128M16RT25E_RD_DQS,
 	.datafwsratio0 = MT47H128M16RT25E_PHY_FIFO_WE,
 	.datawrsratio0 = MT47H128M16RT25E_PHY_WR_DATA,
 };
+*/
 
+/*
 static const struct cmd_control ddr2_cmd_ctrl_data = {
 	.cmd0csratio = MT47H128M16RT25E_RATIO,
 
@@ -110,7 +113,9 @@ static const struct cmd_control ddr2_cmd_ctrl_data = {
 
 	.cmd2csratio = MT47H128M16RT25E_RATIO,
 };
+*/
 
+/*
 static const struct emif_regs ddr2_emif_reg_data = {
 	.sdram_config = MT47H128M16RT25E_EMIF_SDCFG,
 	.ref_ctrl = MT47H128M16RT25E_EMIF_SDREF,
@@ -119,7 +124,9 @@ static const struct emif_regs ddr2_emif_reg_data = {
 	.sdram_tim3 = MT47H128M16RT25E_EMIF_TIM3,
 	.emif_ddr_phy_ctlr_1 = MT47H128M16RT25E_EMIF_READ_LATENCY,
 };
+*/
 
+/*
 static const struct emif_regs ddr2_evm_emif_reg_data = {
 	.sdram_config = MT47H128M16RT25E_EMIF_SDCFG,
 	.ref_ctrl = MT47H128M16RT25E_EMIF_SDREF,
@@ -129,13 +136,16 @@ static const struct emif_regs ddr2_evm_emif_reg_data = {
 	.ocp_config = EMIF_OCP_CONFIG_AM335X_EVM,
 	.emif_ddr_phy_ctlr_1 = MT47H128M16RT25E_EMIF_READ_LATENCY,
 };
+*/
 
+/*
 static const struct ddr_data ddr3_data = {
 	.datardsratio0 = MT41J128MJT125_RD_DQS,
 	.datawdsratio0 = MT41J128MJT125_WR_DQS,
 	.datafwsratio0 = MT41J128MJT125_PHY_FIFO_WE,
 	.datawrsratio0 = MT41J128MJT125_PHY_WR_DATA,
 };
+*/
 
 static const struct ddr_data ddr3_beagleblack_data = {
 	.datardsratio0 = MT41K256M16HA125E_RD_DQS,
@@ -144,20 +154,25 @@ static const struct ddr_data ddr3_beagleblack_data = {
 	.datawrsratio0 = MT41K256M16HA125E_PHY_WR_DATA,
 };
 
+/*
 static const struct ddr_data ddr3_evm_data = {
 	.datardsratio0 = MT41J512M8RH125_RD_DQS,
 	.datawdsratio0 = MT41J512M8RH125_WR_DQS,
 	.datafwsratio0 = MT41J512M8RH125_PHY_FIFO_WE,
 	.datawrsratio0 = MT41J512M8RH125_PHY_WR_DATA,
 };
+*/
 
+/*
 static const struct ddr_data ddr3_icev2_data = {
 	.datardsratio0 = MT41J128MJT125_RD_DQS_400MHz,
 	.datawdsratio0 = MT41J128MJT125_WR_DQS_400MHz,
 	.datafwsratio0 = MT41J128MJT125_PHY_FIFO_WE_400MHz,
 	.datawrsratio0 = MT41J128MJT125_PHY_WR_DATA_400MHz,
 };
+*/
 
+/*
 static const struct cmd_control ddr3_cmd_ctrl_data = {
 	.cmd0csratio = MT41J128MJT125_RATIO,
 	.cmd0iclkout = MT41J128MJT125_INVERT_CLKOUT,
@@ -168,6 +183,7 @@ static const struct cmd_control ddr3_cmd_ctrl_data = {
 	.cmd2csratio = MT41J128MJT125_RATIO,
 	.cmd2iclkout = MT41J128MJT125_INVERT_CLKOUT,
 };
+*/
 
 static const struct cmd_control ddr3_beagleblack_cmd_ctrl_data = {
 	.cmd0csratio = MT41K256M16HA125E_RATIO,
@@ -180,6 +196,7 @@ static const struct cmd_control ddr3_beagleblack_cmd_ctrl_data = {
 	.cmd2iclkout = MT41K256M16HA125E_INVERT_CLKOUT,
 };
 
+/*
 static const struct cmd_control ddr3_evm_cmd_ctrl_data = {
 	.cmd0csratio = MT41J512M8RH125_RATIO,
 	.cmd0iclkout = MT41J512M8RH125_INVERT_CLKOUT,
@@ -190,7 +207,9 @@ static const struct cmd_control ddr3_evm_cmd_ctrl_data = {
 	.cmd2csratio = MT41J512M8RH125_RATIO,
 	.cmd2iclkout = MT41J512M8RH125_INVERT_CLKOUT,
 };
+*/
 
+/*
 static const struct cmd_control ddr3_icev2_cmd_ctrl_data = {
 	.cmd0csratio = MT41J128MJT125_RATIO_400MHz,
 	.cmd0iclkout = MT41J128MJT125_INVERT_CLKOUT_400MHz,
@@ -201,7 +220,9 @@ static const struct cmd_control ddr3_icev2_cmd_ctrl_data = {
 	.cmd2csratio = MT41J128MJT125_RATIO_400MHz,
 	.cmd2iclkout = MT41J128MJT125_INVERT_CLKOUT_400MHz,
 };
+*/
 
+/*
 static struct emif_regs ddr3_emif_reg_data = {
 	.sdram_config = MT41J128MJT125_EMIF_SDCFG,
 	.ref_ctrl = MT41J128MJT125_EMIF_SDREF,
@@ -212,6 +233,7 @@ static struct emif_regs ddr3_emif_reg_data = {
 	.emif_ddr_phy_ctlr_1 = MT41J128MJT125_EMIF_READ_LATENCY |
 				PHY_EN_DYN_PWRDN,
 };
+*/
 
 static struct emif_regs ddr3_beagleblack_emif_reg_data = {
 	.sdram_config = MT41K256M16HA125E_EMIF_SDCFG,
@@ -224,6 +246,7 @@ static struct emif_regs ddr3_beagleblack_emif_reg_data = {
 	.emif_ddr_phy_ctlr_1 = MT41K256M16HA125E_EMIF_READ_LATENCY,
 };
 
+/*
 static struct emif_regs ddr3_evm_emif_reg_data = {
 	.sdram_config = MT41J512M8RH125_EMIF_SDCFG,
 	.ref_ctrl = MT41J512M8RH125_EMIF_SDREF,
@@ -235,7 +258,9 @@ static struct emif_regs ddr3_evm_emif_reg_data = {
 	.emif_ddr_phy_ctlr_1 = MT41J512M8RH125_EMIF_READ_LATENCY |
 				PHY_EN_DYN_PWRDN,
 };
+*/
 
+/*
 static struct emif_regs ddr3_icev2_emif_reg_data = {
 	.sdram_config = MT41J128MJT125_EMIF_SDCFG_400MHz,
 	.ref_ctrl = MT41J128MJT125_EMIF_SDREF_400MHz,
@@ -246,6 +271,7 @@ static struct emif_regs ddr3_icev2_emif_reg_data = {
 	.emif_ddr_phy_ctlr_1 = MT41J128MJT125_EMIF_READ_LATENCY_400MHz |
 				PHY_EN_DYN_PWRDN,
 };
+*/
 
 #ifdef CONFIG_SPL_OS_BOOT
 int spl_start_uboot(void)
@@ -283,9 +309,9 @@ const struct dpll_params *get_dpll_ddr_params(void)
   return &dpll_ddr3_400MHz[ind];
 }
 
+/*
 static u8 bone_not_connected_to_ac_power(void)
 {
- /*
 	if (board_is_bone()) {
 		uchar pmic_status_reg;
 		if (tps65217_reg_read(TPS65217_STATUS,
@@ -296,9 +322,9 @@ static u8 bone_not_connected_to_ac_power(void)
 			return 1;
 		}
 	}
-*/
 	return 0;
 }
+*/
 
 const struct dpll_params *get_dpll_mpu_params(void)
 {
@@ -342,6 +368,7 @@ const struct dpll_params *get_dpll_mpu_params(void)
 		return &dpll_mpu_opp100;
 	case MPUPLL_M_300:
 		return &dpll_mpu_opp[ind][0];
+  }
 
 	return &dpll_mpu_opp[ind][0];
 }
@@ -371,8 +398,9 @@ static void scale_vcores_bone(int freq)
 	 * Override what we have detected since we know if we have
 	 * a Beaglebone Black it supports 1GHz.
 	 */
-/*
-  if (board_is_pb() || board_is_bone_lt())
+  
+  //if (board_is_pb() || board_is_bone_lt())
+  if (board_is_oresat())
 		freq = MPUPLL_M_1000;
 
 	switch (freq) {
@@ -396,9 +424,6 @@ static void scale_vcores_bone(int freq)
 		usb_cur_lim = TPS65217_USB_INPUT_CUR_LIMIT_1300MA;
 		break;
 	}
-*/
-  mpu_vdd = TPS65217_DCDC_VOLT_SEL_1325MV;
-  usb_cur_lim = TPS65217_USB_INPUT_CUR_LIMIT_1800MA;
 
 	if (tps65217_reg_write(TPS65217_PROT_LEVEL_NONE,
 			       TPS65217_POWER_PATH,
@@ -603,13 +628,12 @@ void sdram_init(void)
 	else
 		config_ddr(266, &ioregs, &ddr2_data,
 			   &ddr2_cmd_ctrl_data, &ddr2_emif_reg_data, 0);
-}
 */
   config_ddr(400, &ioregs_bonelt,
        &ddr3_beagleblack_data,
        &ddr3_beagleblack_cmd_ctrl_data,
        &ddr3_beagleblack_emif_reg_data, 0);
-
+}
 #endif
 
 #if defined(CONFIG_CLOCK_SYNTHESIZER) && (!defined(CONFIG_SPL_BUILD) || \
@@ -1041,6 +1065,8 @@ int board_fit_config_name_match(const char *name)
 	else if (board_is_oresat_cfc() && !strcmp(name, "oresat-cfc"))
 		return 0;
 	else if (board_is_bone_lt() && !strcmp(name, "am335x-boneblack"))
+		return 0;
+	else if (board_is_pb() && !strcmp(name, "am335x-pocketbeagle"))
 		return 0;
 	return -1;
 }

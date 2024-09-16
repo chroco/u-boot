@@ -114,30 +114,20 @@
 		"run ramargs; " \
 		"bootz ${loadaddr} ${rdaddr} ${fdtaddr}\0" \
 	"findfdt="\
-		"if test $board_name = A335BONE; then " \
-			"setenv fdtfile am335x-bone.dtb; fi; " \
+		"if test $board_name = A335OSC3; then " \
+			"setenv fdtfile oresat-c3.dtb; fi; " \
+		"if test $board_name = A335OGPS; then " \
+			"setenv fdtfile oresat-gps.dtb; fi; " \
+		"if test $board_name = A335OGST; then " \
+			"setenv fdtfile oresat-star-tracker.dtb; fi; " \
+		"if test $board_name = A335ODWF; then " \
+			"setenv fdtfile oresat-dxwifi.dtb; fi; " \
+		"if test $board_name = A335OCFC; then " \
+			"setenv fdtfile oresat-cfc.dtb; fi; " \
 		"if test $board_name = A335BNLT; then " \
-			"setenv fdtfile am335x-oresat.dtb; fi; " \
+			"setenv fdtfile am335x-boneblack.dtb; fi; " \
 		"if test $board_name = A335PBGL; then " \
 			"setenv fdtfile am335x-pocketbeagle.dtb; fi; " \
-		"if test $board_name = BBBW; then " \
-			"setenv fdtfile am335x-boneblack-wireless.dtb; fi; " \
-		"if test $board_name = BBG1; then " \
-			"setenv fdtfile am335x-bonegreen.dtb; fi; " \
-		"if test $board_name = BBGW; then " \
-			"setenv fdtfile am335x-bonegreen-wireless.dtb; fi; " \
-		"if test $board_name = BBBL; then " \
-			"setenv fdtfile am335x-boneblue.dtb; fi; " \
-		"if test $board_name = BBEN; then " \
-			"setenv fdtfile am335x-sancloud-bbe.dtb; fi; " \
-		"if test $board_name = BBELITE; then " \
-			"setenv fdtfile am335x-sancloud-bbe-lite.dtb; fi; " \
-		"if test $board_name = BBE_EX_WIFI; then " \
-			"setenv fdtfile am335x-sancloud-bbe-extended-wifi.dtb; fi; " \
-		"if test $board_name = A33515BB; then " \
-			"setenv fdtfile am335x-evm.dtb; fi; " \
-		"if test $board_name = A335X_SK; then " \
-			"setenv fdtfile am335x-evmsk.dtb; fi; " \
 		"if test $board_name = A335_ICE; then " \
 			"setenv fdtfile am335x-icev2.dtb; " \
 			"if test $ice_mii = mii; then " \
