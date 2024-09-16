@@ -471,6 +471,9 @@ if (board_is_oresat()) {
 		configure_module_pin_mux(mmc1_pin_mux);
 #endif
 		configure_module_pin_mux(i2c2_pin_mux);
+	} else if (board_is_pb()) {
+		configure_module_pin_mux(mii1_pin_mux);
+		configure_module_pin_mux(mmc0_pin_mux);
 	} else {
 		// Unknown board. We might still be able to boot. 
 		puts("Bad EEPROM or unknown board, cannot configure pinmux.");

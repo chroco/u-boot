@@ -306,7 +306,10 @@ const struct dpll_params *get_dpll_ddr_params(void)
 	else
 		return &dpll_ddr2_266MHz[ind];
 */
-  return &dpll_ddr3_400MHz[ind];
+  if (board_is_pb() || board_is_oresat())
+		return &dpll_ddr3_400MHz[ind];
+	else
+		return &dpll_ddr2_266MHz[ind];
 }
 
 /*
@@ -352,7 +355,7 @@ const struct dpll_params *get_dpll_mpu_params(void)
 		return &dpll_mpu_opp[ind][0];
 	}
 */
-	if (board_is_oresat())
+	if (board_is_pb() || board_is_oresat())
 		freq = MPUPLL_M_1000;
 
 	switch (freq) {
@@ -400,7 +403,7 @@ static void scale_vcores_bone(int freq)
 	 */
   
   //if (board_is_pb() || board_is_bone_lt())
-  if (board_is_oresat())
+  if (board_is_pb() || board_is_oresat())
 		freq = MPUPLL_M_1000;
 
 	switch (freq) {
@@ -629,10 +632,14 @@ void sdram_init(void)
 		config_ddr(266, &ioregs, &ddr2_data,
 			   &ddr2_cmd_ctrl_data, &ddr2_emif_reg_data, 0);
 */
-  config_ddr(400, &ioregs_bonelt,
-       &ddr3_beagleblack_data,
-       &ddr3_beagleblack_cmd_ctrl_data,
-       &ddr3_beagleblack_emif_reg_data, 0);
+  if (board_is_pb() || board_is_oresat())
+		config_ddr(400, &ioregs_bonelt,
+			   &ddr3_beagleblack_data,
+			   &ddr3_beagleblack_cmd_ctrl_data,
+			   &ddr3_beagleblack_emif_reg_data, 0);
+	else 
+		config_ddr(266, &ioregs, &ddr2_data,
+			   &ddr2_cmd_ctrl_data, &ddr2_emif_reg_data, 0);
 }
 #endif
 
