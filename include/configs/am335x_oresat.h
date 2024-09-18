@@ -114,14 +114,22 @@
 		"run ramargs; " \
 		"bootz ${loadaddr} ${rdaddr} ${fdtaddr}\0" \
 	"findfdt="\
-		"if test $board_name = A335OSC3; then " \
-			"setenv fdtfile oresat-c3.dtb; fi; " \
-		"if test $board_name = A335OGPS; then " \
-			"setenv fdtfile oresat-gps.dtb; fi; " \
+		"if test $board_name = OSC30600; then " \
+			"setenv fdtfile oresat-c3-0600.dtb; fi; " \
+		"if test $board_name = OSC30601; then " \
+			"setenv fdtfile oresat-c3-0601.dtb; fi; " \
+		"if test $board_name = OSC3TEST; then " \
+			"setenv fdtfile oresat-c3-test.dtb; fi; " \
+		"if test $board_name = OGPS0100; then " \
+			"setenv fdtfile oresat-gps-0100.dtb; fi; " \
+		"if test $board_name = OGPS0101; then " \
+			"setenv fdtfile oresat-gps-0101.dtb; fi; " \
 		"if test $board_name = A335OGST; then " \
 			"setenv fdtfile oresat-star-tracker.dtb; fi; " \
-		"if test $board_name = A335ODWF; then " \
-			"setenv fdtfile oresat-dxwifi.dtb; fi; " \
+		"if test $board_name = ODWF0102; then " \
+			"setenv fdtfile oresat-dxwifi-0102.dtb; fi; " \
+		"if test $board_name = ODWF0103; then " \
+			"setenv fdtfile oresat-dxwifi-0103.dtb; fi; " \
 		"if test $board_name = A335OCFC; then " \
 			"setenv fdtfile oresat-cfc.dtb; fi; " \
 		"if test $board_name = A335BNLT; then " \
