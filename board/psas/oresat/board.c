@@ -97,15 +97,13 @@ struct serial_device *default_serial_console(void)
 #endif
 
 #if !CONFIG_IS_ENABLED(SKIP_LOWLEVEL_INIT)
-/*
+
 static const struct ddr_data ddr2_data = {
 	.datardsratio0 = MT47H128M16RT25E_RD_DQS,
 	.datafwsratio0 = MT47H128M16RT25E_PHY_FIFO_WE,
 	.datawrsratio0 = MT47H128M16RT25E_PHY_WR_DATA,
 };
-*/
 
-/*
 static const struct cmd_control ddr2_cmd_ctrl_data = {
 	.cmd0csratio = MT47H128M16RT25E_RATIO,
 
@@ -113,9 +111,7 @@ static const struct cmd_control ddr2_cmd_ctrl_data = {
 
 	.cmd2csratio = MT47H128M16RT25E_RATIO,
 };
-*/
 
-/*
 static const struct emif_regs ddr2_emif_reg_data = {
 	.sdram_config = MT47H128M16RT25E_EMIF_SDCFG,
 	.ref_ctrl = MT47H128M16RT25E_EMIF_SDREF,
@@ -124,7 +120,6 @@ static const struct emif_regs ddr2_emif_reg_data = {
 	.sdram_tim3 = MT47H128M16RT25E_EMIF_TIM3,
 	.emif_ddr_phy_ctlr_1 = MT47H128M16RT25E_EMIF_READ_LATENCY,
 };
-*/
 
 /*
 static const struct emif_regs ddr2_evm_emif_reg_data = {
@@ -1091,6 +1086,28 @@ int board_fit_config_name_match(const char *name)
 		}
 	}
 */
+  if(board_is_oresat() || board_is_pb())
+  {
+    return 0;
+  }
+    
+/*
+	if (board_is_oresat_c3())
+		return 0;
+	else if (board_is_oresat_gps())
+		return 0;
+	else if (board_is_oresat_st())
+		return 0;
+	else if (board_is_oresat_dxwifi())
+		return 0;
+	else if (board_is_oresat_cfc())
+		return 0;
+	else if (board_is_bone_lt())
+		return 0;
+	else if (board_is_pb())
+		return 0;
+//*/
+/*
 	if (board_is_oresat_c3() && !strcmp(name, "oresat-c3"))
 		return 0;
 	else if (board_is_oresat_gps() && !strcmp(name, "oresat-gps"))
@@ -1105,6 +1122,9 @@ int board_fit_config_name_match(const char *name)
 		return 0;
 	else if (board_is_pb() && !strcmp(name, "am335x-pocketbeagle"))
 		return 0;
+//*/
+
+
 	return -1;
 }
 #endif
