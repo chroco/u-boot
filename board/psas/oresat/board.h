@@ -25,23 +25,28 @@
 #define EMIF_OCP_CONFIG_BEAGLEBONE_BLACK       0x00141414
 #define EMIF_OCP_CONFIG_AM335X_EVM             0x003d3d3d
 
-static inline int board_is_oresat_c3(void) {
+static inline int board_is_oresat_c3(void) 
+{
 	return board_ti_is("A335OSC3");
 }
 
-static inline int board_is_oresat_gps(void) {
+static inline int board_is_oresat_gps(void) 
+{
 	return board_ti_is("A335OGPS");
 }
 
-static inline int board_is_oresat_st(void) {
+static inline int board_is_oresat_st(void) 
+{
 	return board_ti_is("A335OSST");
 }
 
-static inline int board_is_oresat_dxwifi(void) {
+static inline int board_is_oresat_dxwifi(void) 
+{
 	return board_ti_is("A335ODWF");
 }
 
-static inline int board_is_oresat_cfc(void) {
+static inline int board_is_oresat_cfc(void) 
+{
 	return board_ti_is("A335OCFC");
 }
 

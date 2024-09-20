@@ -914,32 +914,46 @@ int board_late_init(void)
 		}
 	}
 */
-	if (board_is_oresat_c3()) {
-		if (!strncmp(board_ti_get_rev(), "0600", 4)) {
+	if (board_is_oresat_c3()) 
+  {
+		if (!strncmp(board_ti_get_rev(), "0600", 4)) 
+    {
 			name = "OSC30600";
 		}
-		if (!strncmp(board_ti_get_rev(), "0601", 4)) {
+		
+    if (!strncmp(board_ti_get_rev(), "0601", 4)) 
+    {
 			name = "OSC30601";
 		}
-		if (!strncmp(board_ti_get_rev(), "TEST", 4)) {
+		
+    if (!strncmp(board_ti_get_rev(), "TEST", 4)) 
+    {
 			name = "OSC3TEST";
 		}
 	}
 
-  if (board_is_oresat_dxwifi()) {
-		if (!strncmp(board_ti_get_rev(), "0102", 4)) {
+  if (board_is_oresat_dxwifi()) 
+  {
+		if (!strncmp(board_ti_get_rev(), "0102", 4)) 
+    {
 			name = "ODWF0102";
 		}
-		if (!strncmp(board_ti_get_rev(), "0103", 4)) {
+		
+    if (!strncmp(board_ti_get_rev(), "0103", 4)) 
+    {
 			name = "ODWF0103";
 		}
 	}
 
-  if (board_is_oresat_gps()) {
-		if (!strncmp(board_ti_get_rev(), "0100", 4)) {
+  if (board_is_oresat_gps()) 
+  {
+		if (!strncmp(board_ti_get_rev(), "0100", 4)) 
+    {
 			name = "OGPS0100";
 		}
-		if (!strncmp(board_ti_get_rev(), "0101", 4)) {
+
+		if (!strncmp(board_ti_get_rev(), "0101", 4)) 
+    {
 			name = "OGPS0101";
 		}
 	}
@@ -1086,27 +1100,12 @@ int board_fit_config_name_match(const char *name)
 		}
 	}
 */
+
   if(board_is_oresat() || board_is_pb())
   {
     return 0;
   }
-    
-/*
-	if (board_is_oresat_c3())
-		return 0;
-	else if (board_is_oresat_gps())
-		return 0;
-	else if (board_is_oresat_st())
-		return 0;
-	else if (board_is_oresat_dxwifi())
-		return 0;
-	else if (board_is_oresat_cfc())
-		return 0;
-	else if (board_is_bone_lt())
-		return 0;
-	else if (board_is_pb())
-		return 0;
-//*/
+
 /*
 	if (board_is_oresat_c3() && !strcmp(name, "oresat-c3"))
 		return 0;
@@ -1123,7 +1122,6 @@ int board_fit_config_name_match(const char *name)
 	else if (board_is_pb() && !strcmp(name, "am335x-pocketbeagle"))
 		return 0;
 //*/
-
 
 	return -1;
 }
