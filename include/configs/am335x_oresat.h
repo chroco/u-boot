@@ -25,9 +25,9 @@
 #undef CONFIG_IDENT_STRING
 #define CONFIG_IDENT_STRING "OreSat"
 
-#ifndef CONFIG_SPL_BUILD
-#define CONFIG_TIMESTAMP
-#endif
+//#ifndef CONFIG_SPL_BUILD
+//#define CONFIG_TIMESTAMP
+//#endif
 
 /* Clock Defines */
 #define V_OSCK				24000000  /* Clock output from T2 */
