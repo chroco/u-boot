@@ -13,11 +13,21 @@
  * GNU General Public License for more details.
  */
 
-#ifndef __CONFIG_AM335X_EVM_H
-#define __CONFIG_AM335X_EVM_H
+#ifndef __CONFIG_AM335X_ORESAT_H
+#define __CONFIG_AM335X_ORESAT_H
 
 #include <configs/ti_am335x_common.h>
 #include <linux/sizes.h>
+
+#undef CONFIG_SYS_PROMPT
+#define CONFIG_SYS_PROMPT "oresat> "
+
+#undef CONFIG_IDENT_STRING
+#define CONFIG_IDENT_STRING "OreSat"
+
+#ifndef CONFIG_SPL_BUILD
+#define CONFIG_TIMESTAMP
+#endif
 
 /* Clock Defines */
 #define V_OSCK				24000000  /* Clock output from T2 */
@@ -136,19 +146,10 @@
 			"setenv fdtfile am335x-boneblack.dtb; fi; " \
 		"if test $board_name = A335PBGL; then " \
 			"setenv fdtfile am335x-pocketbeagle.dtb; fi; " \
-		"if test $board_name = A335_ICE; then " \
-			"setenv fdtfile am335x-icev2.dtb; " \
-			"if test $ice_mii = mii; then " \
-				"setenv pxe_label_override Pruss; fi;" \
-		"fi; " \
 		"if test $fdtfile = undefined; then " \
 			"echo WARNING: Could not determine device tree to use; fi; \0" \
 	"init_console=" \
-		"if test $board_name = A335_ICE; then "\
-			"setenv console ttyO3,115200n8;" \
-		"else " \
-			"setenv console ttyO0,115200n8;" \
-		"fi;\0" \
+			"setenv console ttyO0,115200n8;\0" \
 	NANDARGS \
 	NETARGS \
 	DFUARGS \
@@ -204,4 +205,4 @@
 #define CFG_SYS_FLASH_SIZE		0x01000000
 #endif  /* NOR support */
 
-#endif	/* ! __CONFIG_AM335X_EVM_H */
+#endif	/* ! __CONFIG_AM335X_ORESAT_H */
