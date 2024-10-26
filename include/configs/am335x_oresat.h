@@ -140,8 +140,10 @@
 			"setenv fdtfile oresat-dxwifi-0102.dtb; fi; " \
 		"if test $board_name = ODWF0103; then " \
 			"setenv fdtfile oresat-dxwifi-0103.dtb; fi; " \
-		"if test $board_name = A335OCFC; then " \
-			"setenv fdtfile oresat-cfc.dtb; fi; " \
+		"if test $board_name = OCFC0100; then " \
+			"setenv fdtfile oresat-cfc-100.dtb; fi; " \
+		"if test $board_name = OSBBBDEV; then " \
+			"setenv fdtfile oresat-bbb-dev.dtb; fi; " \
 		"if test $board_name = A335BNLT; then " \
 			"setenv fdtfile am335x-boneblack.dtb; fi; " \
 		"if test $board_name = A335PBGL; then " \
