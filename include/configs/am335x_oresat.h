@@ -134,7 +134,7 @@
 			"setenv fdtfile oresat-gps-0100.dtb; fi; " \
 		"if test $board_name = OGPS0101; then " \
 			"setenv fdtfile oresat-gps-0101.dtb; fi; " \
-		"if test $board_name = A335OGST; then " \
+		"if test $board_name = OGPS0102; then " \
 			"setenv fdtfile oresat-star-tracker.dtb; fi; " \
 		"if test $board_name = ODWF0102; then " \
 			"setenv fdtfile oresat-dxwifi-0102.dtb; fi; " \

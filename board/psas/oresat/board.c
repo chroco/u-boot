@@ -531,7 +531,10 @@ void scale_vcores(void)
 	else
 		scale_vcores_generic(freq);
 */
-  scale_vcores_bone(freq);
+	if (board_is_pb() || board_is_oresat())
+		scale_vcores_bone(freq);
+	else
+		scale_vcores_generic(freq);
 }
 
 void set_uart_mux_conf(void)
@@ -955,6 +958,14 @@ int board_late_init(void)
 		if (!strncmp(board_ti_get_rev(), "0101", 4)) 
     {
 			name = "OGPS0101";
+		}
+	}
+
+  if (board_is_bbb_dev()) 
+  {
+		if (!strncmp(board_ti_get_rev(), "BDEV", 4)) 
+    {
+			name = "OSBBBDEV";
 		}
 	}
 
