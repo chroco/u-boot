@@ -128,8 +128,6 @@
 			"setenv fdtfile oresat-c3-0600.dtb; fi; " \
 		"if test $board_name = OSC30601; then " \
 			"setenv fdtfile oresat-c3-0601.dtb; fi; " \
-		"if test $board_name = OSC3TEST; then " \
-			"setenv fdtfile oresat-c3-test.dtb; fi; " \
 		"if test $board_name = OGPS0100; then " \
 			"setenv fdtfile oresat-gps-0100.dtb; fi; " \
 		"if test $board_name = OGPS0101; then " \
