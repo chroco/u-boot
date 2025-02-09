@@ -422,6 +422,11 @@ void enable_board_pin_mux(void)
 		configure_module_pin_mux(mmc1_pin_mux);
 #endif
 		configure_module_pin_mux(i2c2_pin_mux);
+	} else if (board_is_oresat()) {
+		configure_module_pin_mux(mmc0_pin_mux);
+#if defined(CONFIG_MTD_RAW_NAND) && defined(CONFIG_EMMC_BOOT)
+		configure_module_pin_mux(nand_pin_mux);
+#endif
 	} else if (board_is_pb()) {
 		configure_module_pin_mux(mii1_pin_mux);
 		configure_module_pin_mux(mmc0_pin_mux);
